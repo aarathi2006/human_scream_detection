@@ -53,4 +53,5 @@ This project uses machine learning and audio signal processing to analyze real-t
 ```bash
 git clone https://github.com/aarathi2006/human_scream_detection.git
 cd human_scream_detection
+python3 app.py
 
