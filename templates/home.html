@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SentrySound - Human Scream Detection</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color:#0d1014;
+            color: #d2d8eb;
+            line-height: 1.6;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color:#FF3333;
+            padding: 0.7rem 2rem;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #fdffff;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #fdffff;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #64ffda;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #64ffda;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 2rem;
+            background: linear-gradient(rgba(1, 2, 3, 0.9), rgba(0, 0, 0, 0.9)),
+                        url('https://images.unsplash.com/photo-1589652717521-10c0d09dea0a') center/cover;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            opacity: 0;
+            margin-top:40px;
+            transform: translateY(20px);
+            animation: fadeInUp 1s forwards;
+            animation-delay: 0.5s;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: #e9ecf7;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 2rem;
+            background-color: rgba(1, 2, 3, 0.9);
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: #f70f0f;
+            padding: 2rem;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card h3 {
+            color: #fcfffe;
+            margin-bottom: 1rem;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: transparent;
+            color: #64ffda;
+            border: 1px solid #64ffda;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: rgba(100, 255, 218, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .features-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+        <a href="#" class="logo">Scream Detection</a>
+            <div class="nav-links">
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="{{ url_for('home') }}#about">About</a>
+                <a href="{{ url_for('SignUp') }}" >Sign Up</a>
+                <a href="{{ url_for('login') }}">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            
+            <a href="{{ url_for('static', filename='images/logo.jpeg') }}" class="logo">
+    <img src="{{ url_for('static', filename='images/logo.jpeg') }}" alt="SentrySound Logo" height="300" width="300">
+</a>
+            <h1>Human Scream Detection </h1>
+            <p>Real-time audio analysis powered by AI to detect human distress signals and emergency situations</p>
+          
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="about">
+        <div class="features-container">
+            <div class="feature-card">
+                <h3>Real-time Monitoring</h3>
+                <p>24/7 audio analysis with instant alerts for potential emergency situations</p>
+            </div>
+            <div class="feature-card">
+                <h3>AI-Powered Detection</h3>
+                <p>Advanced machine learning models trained on thousands of audio samples</p>
+            </div>
+            <div class="feature-card">
+                <h3>Multi-Platform Support</h3>
+                <p>Integrates with web, mobile, and IoT devices for comprehensive coverage</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Scroll Animation for Feature Cards
+        const cards = document.querySelectorAll('.feature-card');
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        cards.forEach(card => {
+            observer.observe(card);
+        });
+
+        // Smooth Scroll for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Button Click Handler
+        document.querySelector('.btn').addEventListener('click', () => {
+            alert('Starting real-time detection...'); // Replace with actual functionality
+        });
+    </script>
+</body>
+</html>

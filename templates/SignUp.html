@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - SentrySound</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: rgba(1, 2, 3, 0.9);
+            color: #d2d8eb;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Signup Container */
+                
+        .signup-container {
+            background-color: #000000;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 350px; /* Reduced width */
+            width: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .signup-container h2 {
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 1rem; /* Reduced margin */
+            font-size: 1.5rem; /* Smaller font size */
+        }
+
+        /* Input Fields */
+        .input-group {
+            margin-bottom: 1rem; /* Reduced margin */
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            color: #ccd6f6;
+            margin-bottom: 0.3rem; /* Reduced margin */
+            font-size: 0.9rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.6rem; /* Reduced padding */
+            border: 1px solid #e23d14;
+            border-radius: 5px;
+            background-color: transparent;
+            color: #ccd6f6;
+            font-size: 0.9rem; /* Smaller font size */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: #f35728;
+            box-shadow: 0 0 10px rgba(252, 255, 254, 0.897);
+            outline: none;
+        }
+
+        /* Button Styles */
+        .signup-btn {
+            width: 100%;
+            padding: 0.8rem; /* Reduced padding */
+            background-color: #f03c05;
+            color: #fcfafa;
+            border: none;
+            border-radius: 5px;
+            font-size: 0.9rem; /* Smaller font size */
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .signup-btn:hover {
+            background-color: #c70000f5;
+            transform: translateY(-3px);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Link to Login */
+        .login-link {
+            text-align: center;
+            margin-top: 1rem; /* Reduced margin */
+            color: #faf7f6;
+            font-size: 0.9rem; /* Smaller font size */
+        }
+
+        .login-link a {
+            color: #f04a08;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .login-link a:hover {
+            color: #ee3f0a;
+        }
+    </style>
+</head>
+<body>
+    <!-- Signup Form -->
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form id="signup-form">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            </div>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <div class="input-group">
+                <label for="emergency-contact">Emergency Contact</label>
+                <input type="tel" id="emergency-contact" name="emergency-contact" placeholder="Enter contact number" required>
+            </div>
+            <button type="submit" class="signup-btn">Sign Up</button>
+        </form>
+        <div class="login-link">
+            Already have an account? <a href="{{ url_for('login') }}">Login</a>
+        </div>
+    </div>
+
+    <script>
+        // Form Submission Handler
+        document.getElementById('signup-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const emergencyContact = document.getElementById('emergency-contact').value;
+
+            // Simulate form submission (replace with actual backend integration)
+            console.log('Signup Details:', { username, email, password, emergencyContact });
+            alert('Signup successful!');
+
+            // Redirect to login page (replace with actual URL)
+            window.location.href = "{{ url_for('login') }}";
+        });
+
+        // Add pulse animation on button hover
+        const signupBtn = document.querySelector('.signup-btn');
+        signupBtn.addEventListener('mouseenter', () => {
+            signupBtn.style.animation = 'pulse 1s infinite';
+        });
+        signupBtn.addEventListener('mouseleave', () => {
+            signupBtn.style.animation = '';
+        });
+    </script>
+</body>
+</html>
